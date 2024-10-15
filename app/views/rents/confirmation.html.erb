@@ -1,0 +1,13 @@
+<h1>確認画面</h1>
+<p>名前: <%= @product.name %></p>
+<p>開始日: <%= @rent.start_date.to_formatted_s(:datetime_jp) %></p>
+<p>終了日: <%= @rent.end_date.to_formatted_s(:datetime_jp) %></p>
+
+<%= form_with url: rents_path, method: :post, local: true, data: { turbo: false } do |f| %>
+  <%= f.hidden_field :product_id, value: @product.id, name: 'rent[product_id]' %>
+  <%= f.hidden_field :user_id, value: current_user.id, name: 'rent[user_id]' %>
+  <%= f.hidden_field :start_date, value: @rent.start_date, name: 'rent[start_date]' %>
+  <%= f.hidden_field :end_date, value: @rent.end_date, name: 'rent[end_date]' %>
+  <%= f.submit "予約を確定する" %>
+<% end %>
+<p><%= link_to "キャンセル", :products %></p>

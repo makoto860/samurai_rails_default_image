@@ -1,0 +1,26 @@
+<h1>Products#index</h1>
+<p>Find me in app/views/products/index.html.erb</p>
+<h1>product一覧</h1>
+<% if flash[:success] %>
+  <p class="success"><%= flash[:success] %></p>
+<% end %>
+
+<% @products.each do |product| %>
+  <p>--------------------------------------------------------------------</p>
+  <p>product_id: <%= product.id %></p>
+  <p>product名: <%= product.name %></p>
+  <p>
+    画像:
+    <% if product.image.attached? %>
+      <%= image_tag product.image, size: '50x50' %>
+    <% else %>
+      <%= image_tag asset_path('default.png'), size: '50x50' %>
+    <% end %>
+  </p>
+  <p><%= link_to "情報", product %></p>
+  <p><%= link_to "編集", [:edit, product] %></p>
+  <p><%= link_to 'product削除', product, data: { turbo_method: :delete, turbo_confirm: "productを削除しますか？" } %></p>
+  <p><%= product.updated_at %></p>
+  <p><%= product.created_at %></p>
+<% end %>
+<p><%= link_to "product新規登録", :new_product %></p>
